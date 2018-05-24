@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div>
+    <audio controls id="tts" src="" ></audio>
+    </div>
+    <div>
+    <textarea id="text" rows="30" cols="50">
+      테스트입니다.
+    </textarea>
+    </div>
+    <div>
+    <button id="callTTS" >run</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $("#callTTS").click(function(){
+      var data = "query="+encodeURIComponent($("#text").val())+"&lang=ko-KR";
+      var success = function(response){
+        console.log('response: '+response);
+        $("#tts").attr('src',response);
+        $("#tts").trigger("play");
+      }
+      $.ajax({
+          dataType: "text",
+          url: "http://localhost:8080/tts/",
+          data: data,
+          success: success
+     });
+    })
+    </script>
+  </body>
+</html>
+
+
+
+
